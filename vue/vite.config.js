@@ -10,10 +10,13 @@ export default defineConfig({
     federation({
       name: "remoteVue",
       filename: "remoteEntry.js",
+      manifest: true,
       exposes: {
         "./VueWrapper": "./src/VueWrapper.jsx",
+        "./App": "./src/App.vue",
+        "./router": "./src/router.js",
       },
-      shared: ["vue", "react", "react-dom"],
+      shared: ["vue", "react", "react-dom", "vue-router", "pinia"],
     }),
   ],
   resolve: {

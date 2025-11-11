@@ -10,9 +10,15 @@ export default defineConfig({
       filename: "remoteEntry.js",
       remotes: {
         // remoteReact: "http://localhost:5001/assets/remoteEntry.js",
-        remoteVue: "http://localhost:5002/remoteEntry.js",
+        remoteVue: {
+          type: "module",
+          name: "remoteVue",
+          entry: "http://localhost:5002/remoteEntry.js",
+          entryGlobalName: "remoteVue",
+          shareScope: "default",
+        },
       },
-      shared: ["react", "react-dom"],
+      shared: ["react", "react-dom", "vue", "vue-router", "pinia"],
     }),
   ],
   build: {

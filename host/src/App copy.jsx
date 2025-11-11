@@ -3,6 +3,8 @@ import VueWrapperHost from './wrapper/VueWrapperHost'
 
 // const RemoteButton = lazy(() => import("remoteReact/Button"));
 const VueWrapper = lazy(() => import("remoteVue/VueWrapper"));
+const router = lazy(() => import("remoteVue/router"));
+const AppVue = lazy(() => import("remoteVue/App"));
 function App() {
   const handleEvent = (event, data) => console.log("Event:", event, data);
   return (
@@ -25,10 +27,12 @@ function App() {
           <VueWrapper />
         </Suspense>
         <Suspense fallback={<div>Loading...</div>}>
-         <VueWrapperHost
-            initialRoute="/dashboard"
+          <VueWrapperHost
+            initialRoute="/" // Sẽ nav khi mount
             onVueEvent={handleEvent}
             vueProps={{ user: "Passed from React" }}
+            router={router} // ← Pass router instance
+            vueApp={AppVue}
           />
         </Suspense>
       </div>

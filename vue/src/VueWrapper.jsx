@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import { createApp } from "vue";
 import App from "./App.vue";
-
+import { createPinia } from "pinia";
+import { router } from "./router";
+import "./style.css";
 const VueWrapper = () => {
   const vueContainer = useRef(null);
   const vueApp = useRef(null);
@@ -9,7 +11,10 @@ const VueWrapper = () => {
   useEffect(() => {
     if (vueContainer.current && !vueApp.current) {
       // Mount Vue component
-      vueApp.current = createApp(App);
+      const app = createApp(App);
+      const pinia = createPinia();
+      app.use(router).use(pinia);
+      vueApp.current = app;
       vueApp.current.mount(vueContainer.current);
     }
 
